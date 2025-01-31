@@ -12,8 +12,8 @@ public class Position {
     }
 
     public Position(Pane world) {
-        this(20 + Math.random() * (world.getWidth() - 40),
-                20 + Math.random() * (world.getHeight() - 40));
+        this(50 + Math.random() * (world.getWidth() - 100),
+                50 + Math.random() * (world.getHeight() - 100));
     }
 
     public double getX() {

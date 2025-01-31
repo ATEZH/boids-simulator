@@ -6,8 +6,9 @@ public class Direction {
     static public double speed = 1;
 
     Direction() {
-        this.dy = Math.sin(Math.random()*2*Math.PI)*speed;
-        this.dx = Math.cos(Math.random()*2*Math.PI)*speed;
+        double direction = Math.random()*2*Math.PI;
+        this.dy = Math.sin(direction)*speed;
+        this.dx = Math.cos(direction)*speed;
     }
 
     public double getDx() {
@@ -20,7 +21,7 @@ public class Direction {
 
     public void updateDirection(Simulation simulation) {
         for (Boid boid: simulation.getBoids()) {
-            System.out.println("Hi");
+            System.out.println("Boid direction updated");
         }
     }
 }
