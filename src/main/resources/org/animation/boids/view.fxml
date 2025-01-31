@@ -10,9 +10,10 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <Pane id="simulationPane" prefHeight="330.0" prefWidth="710.0" />
+    <Pane fx:id="simulationPane" prefHeight="450.0" prefWidth="800.0" />
     <HBox prefHeight="30.0" prefWidth="710.0">
-        <Button id="startButton" mnemonicParsing="false" onAction="#start" text="Start" />
+        <Button id="resetButton" mnemonicParsing="false" onAction="#reset" text="Reset" />
+        <Button id="resumeButton" mnemonicParsing="false" onAction="#resume" text="Resume" />
         <Button id="pauseButton" mnemonicParsing="false" onAction="#pause" text="Pause" />
     </HBox>
 </VBox>
