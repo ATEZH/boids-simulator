@@ -1,6 +1,7 @@
 package org.animation.boids;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
@@ -17,14 +18,27 @@ public class Controller {
     public Simulation simulation;
 
     @FXML
+    Slider alignmentSlider;
+
+    @FXML
+    Slider cohesionSlider;
+
+    @FXML
+    Slider separationSlider;
+
+    @FXML
     public void initialize() {
         simulationPane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-        System.out.println(simulationPane.getWidth() + " " + simulationPane.getHeight());
+    }
+
+    @FXML
+    public void step() {
+        System.out.println("Step Simulation");
     }
 
     @FXML
     public void resume() {
-        System.out.println("Start Simulation");
+        System.out.println("Resume Simulation");
     }
 
     @FXML
@@ -32,10 +46,17 @@ public class Controller {
         System.out.println("Pause Simulation");
     }
 
-    @FXML
-    public void reset() {
-        System.out.println("Reset Simulation");
+    private void clear() {
+        System.out.println("Clear Simulation");
         simulationPane.getChildren().clear();
+    }
+
+    @FXML
+    public void setup() {
+        System.out.println("Setup Simulation");
+        System.out.print(" - ");
+        clear();
+        System.out.print(" - ");
         create();
     }
 

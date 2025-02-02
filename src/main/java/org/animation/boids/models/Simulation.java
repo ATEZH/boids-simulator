@@ -20,11 +20,15 @@ public class Simulation {
         return boids;
     }
 
-    public void resetBoids() {
-        boids.clear();
+    public void createBoids() {
         for (int i = 0; i < populationSize; ++i) {
             Boid boid = new Boid(new Direction(), new Position(world));
             boids.add(boid);
         }
+    }
+
+    public void resetBoids() {
+        boids.clear();
+        createBoids();
     }
 }
