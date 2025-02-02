@@ -8,12 +8,18 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import org.animation.boids.models.Boid;
 import org.animation.boids.models.Simulation;
 import org.animation.boids.views.BoidView;
 
+import java.util.ArrayList;
+
 public class Controller {
     public Simulation simulation;
+
+    public ArrayList<BoidView> boids = new ArrayList<>();
 
     AnimationTimer timer;
 
@@ -44,7 +50,14 @@ public class Controller {
 
     @FXML
     public void step() {
-//        System.out.println("Step Simulation");
+        for (BoidView boidView: boids) {
+            boidView.boid.direction.updateDirection(boidView.boid, simulation, simulationPane);
+            boidView.boid.position.move(boidView.boid.direction);
+            Translate translate = new Translate();
+            translate.setX(boidView.boid.direction.getDx());
+            translate.setY(boidView.boid.direction.getDy());
+            boidView.view.getTransforms().addAll(translate);
+        }
     }
 
     @FXML
@@ -67,6 +80,7 @@ public class Controller {
 
     private void clear() {
         System.out.println("Clear Simulation");
+        boids.clear();
         simulationPane.getChildren().clear();
     }
 
@@ -84,7 +98,8 @@ public class Controller {
         System.out.println("Create Simulation");
         simulation = new Simulation(simulationPane, 30);
         for (Boid boid: simulation.getBoids()) {
-            new BoidView(boid, simulationPane);
+            BoidView boidView = new BoidView(boid, simulationPane);
+            boids.add(boidView);
         }
     }
 }
