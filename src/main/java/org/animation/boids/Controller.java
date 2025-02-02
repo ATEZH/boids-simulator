@@ -1,5 +1,6 @@
 package org.animation.boids;
 
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Background;
@@ -12,10 +13,14 @@ import org.animation.boids.models.Simulation;
 import org.animation.boids.views.BoidView;
 
 public class Controller {
+    public Simulation simulation;
+
+    AnimationTimer timer;
+
+    boolean running = false;
+
     @FXML
     Pane simulationPane;
-
-    public Simulation simulation;
 
     @FXML
     Slider alignmentSlider;
@@ -28,22 +33,36 @@ public class Controller {
 
     @FXML
     public void initialize() {
+        timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                step();
+            }
+        };
         simulationPane.setBackground(new Background(new BackgroundFill(Color.MIDNIGHTBLUE, null, null)));
     }
 
     @FXML
     public void step() {
-        System.out.println("Step Simulation");
+//        System.out.println("Step Simulation");
     }
 
     @FXML
     public void resume() {
         System.out.println("Resume Simulation");
+        if (!running) {
+            running = true;
+            timer.start();
+        }
     }
 
     @FXML
     public void pause() {
         System.out.println("Pause Simulation");
+        if (running) {
+            running = false;
+            timer.stop();
+        }
     }
 
     private void clear() {

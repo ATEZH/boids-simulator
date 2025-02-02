@@ -13,7 +13,7 @@ public class Simulation {
         this.world = world;
         this.populationSize = populationSize;
         boids = new ArrayList<>();
-        resetBoids();
+        createBoids();
     }
 
     public ArrayList<Boid> getBoids() {

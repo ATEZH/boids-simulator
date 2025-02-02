@@ -24,4 +24,16 @@ public class Direction {
             System.out.println("Boid direction updated");
         }
     }
+
+    private void alignment() {
+
+    }
+
+    private void cohesion() {
+
+    }
+
+    private void separation() {
+
+    }
 }
