@@ -28,7 +28,7 @@ public class Controller {
 
     @FXML
     public void initialize() {
-        simulationPane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+        simulationPane.setBackground(new Background(new BackgroundFill(Color.MIDNIGHTBLUE, null, null)));
     }
 
     @FXML

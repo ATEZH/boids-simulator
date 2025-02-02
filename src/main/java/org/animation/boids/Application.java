@@ -10,7 +10,7 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 675);
+        Scene scene = new Scene(fxmlLoader.load(), 1150, 730);
         stage.setTitle("Boids Simulator");
         stage.setScene(scene);
         stage.show();
