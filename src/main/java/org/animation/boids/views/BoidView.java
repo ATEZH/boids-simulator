@@ -24,4 +24,9 @@ public class BoidView {
         boidView.setFill(Color.WHITE);
         return boidView;
     }
+
+    public void updateView() {
+        view.setCenterX(boid.position.getX());
+        view.setCenterY(boid.position.getY());
+    }
 }

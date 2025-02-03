@@ -6,10 +6,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
-import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 import org.animation.boids.models.Boid;
 import org.animation.boids.models.Simulation;
 import org.animation.boids.views.BoidView;
@@ -53,10 +50,7 @@ public class Controller {
         for (BoidView boidView: boids) {
             boidView.boid.direction.updateDirection(boidView.boid, simulation, simulationPane);
             boidView.boid.position.move(boidView.boid.direction);
-            Translate translate = new Translate();
-            translate.setX(boidView.boid.direction.getDx());
-            translate.setY(boidView.boid.direction.getDy());
-            boidView.view.getTransforms().addAll(translate);
+            boidView.updateView();
         }
     }
 
