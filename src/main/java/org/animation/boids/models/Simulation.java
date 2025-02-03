@@ -26,9 +26,4 @@ public class Simulation {
             boids.add(boid);
         }
     }
-
-    public void resetBoids() {
-        boids.clear();
-        createBoids();
-    }
 }
