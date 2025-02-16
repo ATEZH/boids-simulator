@@ -10,9 +10,9 @@ public class Direction {
     static public double speed = 1;
     static private double absoluteMaxDx = 2;
     static private double absoluteMaxDy = 2;
-    static public double fieldOfView = 50;
-    private double wallAvoidanceFactor = 0.02*speed;
-    private double wallAvoidanceAlt = 0.003*speed;
+    static public double fieldOfView = 70;
+    private double wallAvoidanceFactor = 0.06*speed;
+    private double wallAvoidanceAlt = 0.01*speed;
 
     Direction() {
         double direction = Math.random()*2*Math.PI;
@@ -29,8 +29,10 @@ public class Direction {
     }
 
     public void updateDirection(Boid thisBoid, Simulation simulation, Pane world) {
-        alignment(thisBoid, simulation.getBoids(), fieldOfView*2);
-        avoidWall(thisBoid, world, fieldOfView*2);
+        alignment(thisBoid, simulation.getBoids(), fieldOfView);
+        separation(thisBoid, simulation.getBoids(), fieldOfView);
+        cohesion(thisBoid, simulation.getBoids(), fieldOfView);
+        avoidWall(thisBoid, world, fieldOfView*2.5);
     }
 
     private void avoidWall(Boid thisBoid, Pane world, double fieldOfView) {
@@ -59,23 +61,50 @@ public class Direction {
         for (Boid boid: boids) {
             double distance = measureDistance(thisBoid.position.getX(), boid.position.getX(),
                     thisBoid.position.getY(), boid.position.getY());
-            if (distance < fieldOfView && distance > fieldOfView/3) {
+            if (distance < fieldOfView && distance > fieldOfView/3 && boid != thisBoid) {
                 ++localBoids;
                 totalDx += boid.direction.getDx();
                 totalDy += boid.direction.getDy();
             }
         }
         if (localBoids == 0) return;
-        dx = 0.03*(totalDx/localBoids) + 0.97*dx;
-        dy = 0.03*(totalDy/localBoids) + 0.97*dy;
+        dx += 0.003*(totalDx/localBoids);
+        dy += 0.003*(totalDy/localBoids);
     }
 
-    private void cohesion() {
-
+    private void cohesion(Boid thisBoid, ArrayList<Boid> boids, double fieldOfView) {
+        int localBoids = 0;
+        double totalX = 0;
+        double totalY = 0;
+        for (Boid boid: boids) {
+            double distance = measureDistance(thisBoid.position.getX(), boid.position.getX(),
+                    thisBoid.position.getY(), boid.position.getY());
+            if (distance < fieldOfView && distance > fieldOfView/2 && boid != thisBoid) {
+                ++localBoids;
+                totalX += boid.position.getX();
+                totalY += boid.position.getY();
+            }
+        }
+        if (localBoids == 0) return;
+        double centerX = totalX/localBoids;
+        double centerY = totalY/localBoids;
+        dx += 0.001*(centerX - thisBoid.position.getX());
+        dy += 0.001*(centerY - thisBoid.position.getY());
     }
 
-    private void separation() {
-
+    private void separation(Boid thisBoid, ArrayList<Boid> boids, double fieldOfView) {
+        double totalDx = 0;
+        double totalDy = 0;
+        for (Boid boid: boids) {
+            double distance = measureDistance(thisBoid.position.getX(), boid.position.getX(),
+                    thisBoid.position.getY(), boid.position.getY());
+            if (distance < fieldOfView/2 && boid != thisBoid) {
+                totalDx += thisBoid.position.getX() - boid.position.getX();
+                totalDy += thisBoid.position.getY() - boid.position.getY();
+            }
+        }
+        dx += 0.001*totalDx;
+        dy += 0.001*totalDy;
     }
 
     private double measureDistance(double x1, double x2, double y1, double y2) {
